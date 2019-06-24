@@ -10,6 +10,10 @@ passport.use(new GoogleStrategy({
         clientSecret:  keys.google.clientSecret
     }, (accessToken, refreshToken, profile, done) => {
         //passport callback function
+
+        //check if user already exist in db
+        User.findOne({googleId: profile.id})
+
         new User({
             username: profile.displayName,
             googleId: profile.id
